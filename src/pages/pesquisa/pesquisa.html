@@ -17,7 +17,7 @@
 
 <ion-content padding>
   <p>{{ relatorioAtual.descricao }}</p>
-  <ion-list [ngSwitch]="relatorioAtual">
+  <ion-list>
     <button ion-item *ngFor="let instituicao of relatorioAtual.instituicoes">
       <h2>{{ instituicao.nome }}</h2>
       <h3>{{ instituicao.tipo }}</h3>
