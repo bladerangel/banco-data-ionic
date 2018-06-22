@@ -12,17 +12,17 @@ export class InicioPage {
 
   instituicao: string = 'modal';
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private webScrapingProvider: WebScrapingProvider) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private webScrapingProvider: WebScrapingProvider) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad InicioPage');
+    
   }
 
   pesquisar() {
     this.webScrapingProvider.getPesquisa(this.instituicao)
       .subscribe(resultado => {
-          console.log(resultado);
+        this.navCtrl.push('PesquisaPage', {resultado});
       });
   }
 }

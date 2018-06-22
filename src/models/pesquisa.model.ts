@@ -1,8 +1,8 @@
 export class Relatorio {
     constructor(
-        public tipo: string,
+        public classificacao: string,
         public descricao: string,
-        public instituicao: Instituicao[]) { }
+        public instituicoes: Instituicao[]) { }
 }
 
 export class Instituicao {

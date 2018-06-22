@@ -1,25 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Relatorio } from '../../models/pesquisa.model';
 
-/**
- * Generated class for the PesquisaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import 'rxjs/add/operator/map';
 
 @IonicPage()
 @Component({
   selector: 'page-pesquisa',
   templateUrl: 'pesquisa.html',
 })
-export class PesquisaPage {
+export class PesquisaPage implements OnInit {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  relatorioAtual: Relatorio;
+  relatorios: Relatorio[] = [];
+  constructor(private navCtrl: NavController, private navParams: NavParams) {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PesquisaPage');
+  ngOnInit() {
+    this.relatorios = this.navParams.get('resultado');
+    this.relatorioAtual = this.relatorios[0];
   }
 
 }
