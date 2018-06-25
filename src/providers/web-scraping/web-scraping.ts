@@ -1,9 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import 'rxjs/add/operator/map';
+
 import cheerio from 'cheerio';
-import { Relatorio, Instituicao } from '../../models/pesquisa.model';
 
 @Injectable()
 export class WebScrapingProvider {
@@ -16,37 +15,38 @@ export class WebScrapingProvider {
 
   getInformacoesIniciais() {
     return this.http.get(this.url, { responseType: 'text' })
-      .map(html => {
-        const informacoes = [];
-        const $ = cheerio.load(html);
-        $('div[class="text-center"]').each((indice, elemento) => {
-          informacoes.push($(elemento).find('span').text() + ' ' + $(elemento).find('small').text());
-        });
-        return informacoes;
+      .map(html => cheerio.load(html))
+      .map($ => {
+        return $('div[class="text-center"]')
+          .map((indice, elemento) => $(elemento).find('span').text() + ' ' + $(elemento).find('small').text())
+          .get();
       });
   }
 
   getPesquisa(nomeInstituicao) {
     return this.http.get(this.url + 'busca/?i=' + nomeInstituicao, { responseType: 'text' })
-      .map(html => {
-        const pesquisa: Relatorio[] = [];
-        const $ = cheerio.load(html);
-        $('div[class="col-md-4"]').each((indice, elemento) => {
-          const classificacao = $(elemento).find('h4').first().text();
-          const descricao = $(elemento).find('p').text();
-          const instituicoes: Instituicao[] = [];
-          $(elemento).find('h4 a').each((indice, elemento) => {
-            const nome = $(elemento).text().trim();
-            const array = $(elemento).parent().next().text().trim().split('\n');
-            const tipo = array[0].trim();
-            const localizacao = array[1].trim();
-            const url = $(elemento).attr('href');
-            instituicoes.push(new Instituicao(tipo, nome, localizacao, url));
-          })
-          pesquisa.push(new Relatorio(classificacao, descricao, instituicoes));
-        });
-        return pesquisa;
+      .map(html => cheerio.load(html))
+      .map($ => {
+        return $('div[class="col-md-4"]').map((indice, elemento) => {
+          return {
+            classificacao: $(elemento).find('h4').first().text(),
+            descricao: $(elemento).find('p').text(),
+            instituicoes: $(elemento).find('h4 a')
+              .map((indice, elemento) => {
+                return {
+                  nome: $(elemento).text().trim(),
+                  ...$(elemento).parent().next().text().trim().split('\n')
+                    .reduce((elementoAnterior, elemento, indice, array) => {
+                      return {
+                        tipo: array[0].trim(),
+                        localizacao: array[1].trim()
+                      };
+                    }, {}),
+                  url: $(elemento).attr('href')
+                };
+              }).get()
+          };
+        }).get();
       });
   }
-
 }

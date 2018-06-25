@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Relatorio } from '../../models/pesquisa.model';
 
-import 'rxjs/add/operator/map';
+import { Relatorio } from '../../models/pesquisa.model';
 
 @IonicPage()
 @Component({
