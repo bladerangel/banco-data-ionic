@@ -13,19 +13,20 @@ export class WebScrapingProvider {
     console.log('Hello WebScrapingProvider Provider');
   }
 
+  getCheerio(parametros?) {
+    return this.http.get(this.url + parametros, { responseType: 'text' })
+      .map(html => cheerio.load(html));
+  }
+
   getInformacoesIniciais() {
-    return this.http.get(this.url, { responseType: 'text' })
-      .map(html => cheerio.load(html))
-      .map($ => {
-        return $('div[class="text-center"]')
-          .map((indice, elemento) => $(elemento).find('span').text() + ' ' + $(elemento).find('small').text())
-          .get();
-      });
+    return this.getCheerio()
+      .map($ => $('div[class="text-center"]')
+        .map((indice, elemento) => $(elemento).find('span').text() + ' ' + $(elemento).find('small').text())
+        .get());
   }
 
   getPesquisa(nomeInstituicao) {
-    return this.http.get(this.url + 'busca/?i=' + nomeInstituicao, { responseType: 'text' })
-      .map(html => cheerio.load(html))
+    return this.getCheerio('busca/?i=' + nomeInstituicao)
       .map($ => {
         return $('div[class="col-md-4"]').map((indice, elemento) => {
           return {
