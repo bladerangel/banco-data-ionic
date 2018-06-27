@@ -7,13 +7,14 @@ import cheerio from 'cheerio';
 @Injectable()
 export class WebScrapingProvider {
 
-  url = 'https://bancodata.com.br/';
+  url = 'https://bancodata.com.br';
 
   constructor(private http: HttpClient) {
     console.log('Hello WebScrapingProvider Provider');
   }
 
   getCheerio(parametros?) {
+    console.log(this.url + parametros);
     return this.http.get(this.url + parametros, { responseType: 'text' })
       .map(html => cheerio.load(html));
   }
@@ -26,7 +27,7 @@ export class WebScrapingProvider {
   }
 
   getPesquisa(nomeInstituicao) {
-    return this.getCheerio('busca/?i=' + nomeInstituicao)
+    return this.getCheerio('/busca/?i=' + nomeInstituicao)
       .map($ => {
         return $('div[class="col-md-4"]').map((indice, elemento) => {
           return {
@@ -48,6 +49,24 @@ export class WebScrapingProvider {
               }).get()
           };
         }).get();
+      });
+  }
+
+  getRelatorio(url) {
+    return this.getCheerio(url)
+      .map($ => {
+        return {
+          lucroLiquidoAnual: $('div[id="graficoLucroLiquidoAnual"]').parent().next().find('tbody')
+            .map((indice, elemento) => $(elemento).find('tr')
+              .map((indice, elemento) => {
+                const el = $(elemento).find('td');
+                return {
+                  ano: el.eq(0).text().trim().split('(')[0].trim(),
+                  situacao: el.eq(1).text().trim(),
+                  valor: el.eq(2).text().trim().split(' ')[0].replace(',', '.')
+                };
+              }).get()).get()
+        };
       });
   }
 }

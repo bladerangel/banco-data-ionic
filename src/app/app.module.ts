@@ -7,6 +7,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { WebScrapingProvider } from '../providers/web-scraping/web-scraping';
 import { HttpClientModule } from '@angular/common/http';
+import { GraficoProvider } from '../providers/grafico/grafico';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    WebScrapingProvider
+    WebScrapingProvider,
+    GraficoProvider
   ]
 })
 export class AppModule { }
