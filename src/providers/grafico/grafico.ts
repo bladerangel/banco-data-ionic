@@ -31,7 +31,7 @@ export class GraficoProvider {
         backgroundColor: '#8BC34A',
         pointBorderColor: cores,
         pointBackgroundColor: cores,
-        pointRadius : 5,
+        pointRadius: 5,
         pointHoverRadius: 10,
         data: dados.map((numero) => numero.valor),
         fill: false
@@ -44,6 +44,9 @@ export class GraficoProvider {
           scaleLabel: {
             display: true,
             labelString: '(R$ - Milhões)'
+          },
+          ticks: {
+            beginAtZero: true
           }
         }]
       },
