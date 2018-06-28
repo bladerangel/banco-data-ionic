@@ -1,11 +1,11 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Pesquisa</ion-title>
+  <ion-navbar color="verde">
+    <ion-title>Resultados</ion-title>
   </ion-navbar>
 
-  <ion-toolbar no-border-top>
-    <ion-segment [(ngModel)]="relatorioAtual">
+  <ion-toolbar no-border-top color="verde">
+    <ion-segment [(ngModel)]="relatorioAtual" color="amarelo">
       <ion-segment-button *ngFor="let relatorio of relatorios" [value]="relatorio">
         {{ relatorio.classificacao }}
       </ion-segment-button>
@@ -16,7 +16,7 @@
 
 
 <ion-content padding>
-  <p>{{ relatorioAtual.descricao }}</p>
+  <p text-center>{{ relatorioAtual.descricao }}</p>
   <ion-list>
     <button ion-item *ngFor="let instituicao of relatorioAtual.instituicoes" (click)="exibirRelatorio(instituicao.url)">
       <h2>{{ instituicao.nome }}</h2>
