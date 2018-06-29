@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 
 import { Relatorio } from '../../models/pesquisa.model';
 import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
@@ -13,7 +13,7 @@ export class PesquisaPage implements OnInit {
 
   relatorioAtual: Relatorio;
   relatorios: Relatorio[] = [];
-  constructor(private navCtrl: NavController, private navParams: NavParams, private webScrapingProvider: WebScrapingProvider) {
+  constructor(private navCtrl: NavController, private navParams: NavParams, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController) {
 
   }
 
@@ -23,6 +23,10 @@ export class PesquisaPage implements OnInit {
   }
 
   exibirRelatorio(url) {
+    this.loadingCtrl.create({
+      content: "Carregando Relatório...",
+      dismissOnPageChange: true
+    }).present();
     this.webScrapingProvider.getRelatorio(url)
       .subscribe(relatorio => this.navCtrl.push('RelatorioPage', { relatorio }));
   }

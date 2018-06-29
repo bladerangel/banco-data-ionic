@@ -7,6 +7,27 @@
 </ion-header>
 
 
-<ion-content padding>
-  <canvas id="canvas">{{ grafico }}</canvas>
+<ion-content>
+
+  <ion-card>
+    <img [src]="relatorio.sobre.logotipo" />
+    <ion-card-content>
+      <ion-card-title text-center>
+        <ion-icon name='information-circle'></ion-icon>
+        Sobre a instituição
+      </ion-card-title>
+    </ion-card-content>
+    <ion-grid>
+      <ion-row *ngFor="let informacao of informacoes">
+        <ion-col col-5>
+          <b>{{informacao}}</b>
+        </ion-col>
+        <ion-col>
+          {{relatorio.sobre.informacoes[informacao]}}
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <canvas id="lucroLiquidoAnual">{{ grafico }}</canvas>
+  </ion-card>
+
 </ion-content>

@@ -56,6 +56,15 @@ export class WebScrapingProvider {
     return this.getCheerio(url)
       .map($ => {
         return {
+          sobre:
+            $('i[class="fa fa-info-circle"]').parent().map((indice, elemento) => {
+              return {
+                logotipo: $(elemento).next().find('img').attr('src'),
+                informacoes: $(elemento).parent().find('tbody').find('tr').map((indice, elemento) => {
+                  return { [$(elemento).find('th').text().trim()]: $(elemento).find('td').text().trim() };
+                }).get().reduce((elementoAnterior, elemento, indice, array) => { return Object.assign({}, ...array) }, {})
+              }
+            }).get().reduce((elementoAnterior, elemento, indice, array) => elemento, {}),
           lucroLiquidoAnual: $('div[id="graficoLucroLiquidoAnual"]').parent().next().find('tbody')
             .map((indice, elemento) => $(elemento).find('tr')
               .map((indice, elemento) => {

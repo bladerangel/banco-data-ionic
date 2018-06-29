@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 
 import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
 
@@ -12,13 +12,9 @@ export class InicioPage {
 
   instituicao: string = 'modal';
 
-  constructor(private navCtrl: NavController, private navParams: NavParams, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController) {
   }
-
-  ionViewDidLoad() {
-
-  }
-
+  
   pesquisar() {
     this.loadingCtrl.create({
       content: "Pesquisando...",

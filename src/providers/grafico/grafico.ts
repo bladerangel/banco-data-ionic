@@ -12,15 +12,15 @@ export class GraficoProvider {
   }
 
 
-  criarGrafico(tipo, dados, opcoes) {
-    return new Chart('canvas', {
+  criarGrafico(id, tipo, dados, opcoes) {
+    return new Chart(id, {
       type: tipo,
       data: dados,
       options: opcoes
     });
   }
 
-  getLinha(dados) {
+  getLinha(id, dados) {
     const cores = dados.map((numero) => numero.valor > 0 ? '#009688' : '#f44336');
     const data = {
       labels: dados.map((numero) => numero.ano),
@@ -63,6 +63,6 @@ export class GraficoProvider {
       }
     };
 
-    return this.criarGrafico('line', data, opcoes);
+    return this.criarGrafico(id, 'line', data, opcoes);
   }
 }
