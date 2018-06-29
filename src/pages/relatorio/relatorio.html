@@ -12,9 +12,9 @@
   <ion-card>
     <img [src]="relatorio.sobre.logotipo" />
     <ion-card-content>
-      <ion-card-title text-center>
-        <ion-icon name='information-circle'></ion-icon>
-        Sobre a instituição
+      <ion-card-title color="primary" text-center>
+        <ion-icon name='information-circle' color="dark"></ion-icon>
+        {{relatorio.sobre.titulo}}
       </ion-card-title>
     </ion-card-content>
     <ion-grid>
@@ -27,7 +27,18 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    <canvas id="lucroLiquidoAnual">{{ grafico }}</canvas>
+
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header color="primary" text-center>
+      <ion-icon name='trophy' color="dark"></ion-icon>
+      {{relatorio.lucroLiquidoAnual.titulo}}
+    </ion-card-header>
+    <ion-card-content text-center>
+      {{relatorio.lucroLiquidoAnual.descricao}}
+      <canvas id="lucroLiquidoAnual" padding-top>{{ grafico }}</canvas>
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

@@ -56,10 +56,6 @@ export class GraficoProvider {
       bands: {
         yValue: 0,
         belowThresholdColour: ['#FF5722']
-      },
-      title: {
-        display: true,
-        text: 'Histórico do Lucro Líquido'
       }
     };
 

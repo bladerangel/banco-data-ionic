@@ -56,26 +56,32 @@ export class WebScrapingProvider {
     return this.getCheerio(url)
       .map($ => {
         return {
-          sobre:
-            $('i[class="fa fa-info-circle"]').parent().map((indice, elemento) => {
+          sobre: $('i[class="fa fa-info-circle"]').parent().map((indice, elemento) => {
+            return {
+              titulo: $(elemento).text().trim(),
+              logotipo: $(elemento).next().find('img').attr('src'),
+              informacoes: $(elemento).parent().find('tbody').find('tr').map((indice, elemento) => {
+                return { [$(elemento).find('th').text().trim()]: $(elemento).find('td').text().trim() };
+              }).get().reduce((elementoAnterior, elemento, indice, array) => { return Object.assign({}, ...array) }, {})
+            }
+          }).get().reduce((elementoAnterior, elemento, indice, array) => elemento, {}),
+          lucroLiquidoAnual: $('div[id="graficoLucroLiquidoAnual"]').parent()
+            .map((indice, elemento) => {
               return {
-                logotipo: $(elemento).next().find('img').attr('src'),
-                informacoes: $(elemento).parent().find('tbody').find('tr').map((indice, elemento) => {
-                  return { [$(elemento).find('th').text().trim()]: $(elemento).find('td').text().trim() };
-                }).get().reduce((elementoAnterior, elemento, indice, array) => { return Object.assign({}, ...array) }, {})
+                titulo: $(elemento).parent().prev().text().trim(),
+                descricao: $(elemento).prev().text().trim().split('\n').map((elemento) => elemento.trim()).join(' '),
+                valores: $(elemento).next().find('tbody').find('tr')
+                  .map((indice, elemento) => {
+                    const el = $(elemento).find('td');
+                    return {
+                      ano: el.eq(0).text().trim().split('(')[0].trim(),
+                      situacao: el.eq(1).text().trim(),
+                      valor: el.eq(2).text().trim().split(' ')[0].replace(',', '.')
+                    }
+                  }).get()
               }
-            }).get().reduce((elementoAnterior, elemento, indice, array) => elemento, {}),
-          lucroLiquidoAnual: $('div[id="graficoLucroLiquidoAnual"]').parent().next().find('tbody')
-            .map((indice, elemento) => $(elemento).find('tr')
-              .map((indice, elemento) => {
-                const el = $(elemento).find('td');
-                return {
-                  ano: el.eq(0).text().trim().split('(')[0].trim(),
-                  situacao: el.eq(1).text().trim(),
-                  valor: el.eq(2).text().trim().split(' ')[0].replace(',', '.')
-                };
-              }).get()).get()
-        };
-      });
+            }).get().reduce((elementoAnterior, elemento, indice, array) => elemento, {})
+        }
+      })
   }
 }

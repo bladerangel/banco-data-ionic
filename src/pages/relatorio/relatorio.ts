@@ -19,7 +19,7 @@ export class RelatorioPage implements OnInit {
   ngOnInit() {
     this.relatorio = this.navParams.get('relatorio');
     this.informacoes = Object.keys(this.relatorio.sobre.informacoes);
-    this.graficoProvider.getLinha('lucroLiquidoAnual', this.relatorio.lucroLiquidoAnual.reverse());
+    this.graficoProvider.getLinha('lucroLiquidoAnual', this.relatorio.lucroLiquidoAnual.valores.reverse());
   }
 
 }
