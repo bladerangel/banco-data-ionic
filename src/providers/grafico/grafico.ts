@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import Chart from 'chart.js';
-import '../../lib/Chart.Bands';
+import 'Chart.Bands.js/Chart.Bands.js';
 
 @Injectable()
 export class GraficoProvider {
