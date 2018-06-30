@@ -4,4 +4,4 @@
 
 3) O objetivo do projeto é usar as técnicas de web scraping fazendo o uso da biblioteca cheerio e do site https://bancodata.com.br/ as quais serão extraídas as informações relevantes.
 
-    3.1) Para exibição dos gráficos dos relatórios das instituições financeiras foi utilizada a biblioteca Chart.js.
+    3.1) A exibição gráfica dos relatórios das instituições financeiras foi realizada por meio da biblioteca Chart.js.
