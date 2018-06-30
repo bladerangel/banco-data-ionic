@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import 'rxjs/add/operator/map';
 
+import 'rxjs/add/operator/map';
 import cheerio from 'cheerio';
 
 @Injectable()
@@ -20,10 +20,27 @@ export class WebScrapingProvider {
   }
 
   getInformacoesIniciais() {
-    return this.getCheerio()
-      .map($ => $('div[class="text-center"]')
-        .map((indice, elemento) => $(elemento).find('span').text() + ' ' + $(elemento).find('small').text())
-        .get());
+    return this.getCheerio('')
+      .map($ => {
+        return {
+          numeros: $('div[class="text-center"]')
+            .map((indice, elemento) => {
+              return {
+                quantidade: $(elemento).find('span').text(),
+                tipo: $(elemento).find('small').text()
+              }
+            }).get(),
+          sobre:
+            $('footer div[class="col-sm-5 footer-col"]').map((indice, elemento) => {
+              return {
+                titulo: $(elemento).find('h4').text().trim(),
+                descricao: $(elemento).find('p').text().trim(),
+              }
+            }).get().reduce((elementoAnterior, elemento, indice, array) => elemento, {})
+        }
+      })
+
+
   }
 
   getPesquisa(nomeInstituicao) {

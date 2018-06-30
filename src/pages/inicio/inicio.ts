@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, LoadingController } from 'ionic-angular';
 
 import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
@@ -8,13 +8,21 @@ import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
   selector: 'page-inicio',
   templateUrl: 'inicio.html',
 })
-export class InicioPage {
+export class InicioPage implements OnInit {
 
   instituicao: string = 'modal';
+  informacoes;
 
   constructor(private navCtrl: NavController, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController) {
   }
-  
+
+  ngOnInit() {
+    this.webScrapingProvider.getInformacoesIniciais().subscribe(resultado => {
+      this.informacoes = resultado;
+    });
+
+  }
+
   pesquisar() {
     this.loadingCtrl.create({
       content: "Pesquisando...",

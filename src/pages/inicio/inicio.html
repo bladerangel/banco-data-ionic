@@ -11,7 +11,7 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content>
   <ion-list>
     <ion-item>
       <ion-searchbar [(ngModel)]="instituicao" animated="true" placeholder="Pesquisar"></ion-searchbar>
@@ -20,4 +20,29 @@
       </button>
     </ion-item>
   </ion-list>
+
+  <ion-card>
+    <ion-card-header color="primary" text-center>
+      {{informacoes?.sobre?.titulo}}
+    </ion-card-header>
+    <ion-card-content>
+      <p text-center> {{informacoes?.sobre?.descricao}}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let informacao of informacoes?.numeros">
+        <ion-card>
+          <ion-card-content>
+            <ion-card-title color="primary" text-center>
+              {{informacao.quantidade}}
+            </ion-card-title>
+            <p text-center> {{informacao.tipo}}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
 </ion-content>
