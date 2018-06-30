@@ -1,1 +1,21 @@
-<ion-nav root="InicioPage"></ion-nav>
+<ion-menu [content]="menu">
+    <ion-header >
+        <ion-toolbar color="verde">
+            <ion-title text-center>Menu</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content padding>
+        <ion-list>
+            <button ion-item menuClose (click)="carregarPagina('InicioPage')">
+                <ion-icon name="search" item-start></ion-icon>
+                Pesquisar
+            </button>
+            <button ion-item menuClose (click)="carregarPagina('SobrePage')">
+                <ion-icon name="information-circle"  item-start></ion-icon>
+                Sobre
+            </button>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav #menu root="InicioPage"></ion-nav>

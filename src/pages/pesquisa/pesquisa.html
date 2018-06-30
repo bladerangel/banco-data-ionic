@@ -16,7 +16,9 @@
 
 
 <ion-content padding>
-  <p text-center>{{ relatorioAtual.descricao }}</p>
+  <ion-list-header text-wrap text-center>
+    {{ relatorioAtual.descricao }}
+  </ion-list-header>
   <ion-list>
     <button ion-item *ngFor="let instituicao of relatorioAtual.instituicoes" (click)="exibirRelatorio(instituicao.url)">
       <h2>{{ instituicao.nome }}</h2>

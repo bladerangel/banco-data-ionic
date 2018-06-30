@@ -101,4 +101,9 @@ export class WebScrapingProvider {
         }
       })
   }
+
+  getSobre(url) {
+    return this.getCheerio(url)
+      .map($ => $('div[class="page-content"] div[class="col-md-8"]').html());
+  }
 }
