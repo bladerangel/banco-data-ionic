@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, LoadingController, ToastController } from 'ionic-angular';
 
 import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
 
@@ -13,7 +13,7 @@ export class InicioPage implements OnInit {
   instituicao: string = 'modal';
   informacoes;
 
-  constructor(private navCtrl: NavController, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController) {
+  constructor(private navCtrl: NavController, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
   }
 
   ngOnInit() {
@@ -24,13 +24,20 @@ export class InicioPage implements OnInit {
   }
 
   pesquisar() {
-    this.loadingCtrl.create({
+    const carregamento = this.loadingCtrl.create({
       content: "Pesquisando...",
       dismissOnPageChange: true
-    }).present();
+    });
+    carregamento.present();
     this.webScrapingProvider.getPesquisa(this.instituicao)
-      .subscribe(resultado => {
-        this.navCtrl.push('PesquisaPage', { resultado });
-      });
+      .subscribe(resultado => this.navCtrl.push('PesquisaPage', { resultado }),
+        erro => {
+          this.toastCtrl.create({
+            message: 'Instituição não foi encontrada',
+            showCloseButton: true,
+            closeButtonText: 'Ok'
+          }).present();
+          carregamento.dismiss();
+        });
   }
 }
