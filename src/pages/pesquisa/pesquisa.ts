@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController, ModalController, ToastController } from 'ionic-angular';
+import { IonicPage, NavParams, ModalController, ToastController } from 'ionic-angular';
 
 import { Relatorio } from '../../models/pesquisa.model';
 import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
