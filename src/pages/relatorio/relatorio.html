@@ -12,9 +12,8 @@
 
 
 <ion-content>
-
   <ion-card>
-    <img [src]="relatorio.sobre.logotipo" />
+    <img *ngIf="relatorio.sobre.logotipo.split(':')[1] != 'undefined'" [src]="relatorio.sobre.logotipo" />
     <ion-card-content>
       <ion-card-title color="primary" text-center>
         <ion-icon name='information-circle' color="dark"></ion-icon>

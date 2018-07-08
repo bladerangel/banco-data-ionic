@@ -76,7 +76,7 @@ export class WebScrapingProvider {
           sobre: $('i[class="fa fa-info-circle"]').parent().map((indice, elemento) => {
             return {
               titulo: $(elemento).text().trim(),
-              logotipo: $(elemento).next().find('img').attr('src'),
+              logotipo: 'https:' + $(elemento).next().find('img').attr('src'),
               informacoes: $(elemento).parent().find('tbody').find('tr').map((indice, elemento) => {
                 return { [$(elemento).find('th').text().trim()]: $(elemento).find('td').text().trim() };
               }).get().reduce((elementoAnterior, elemento, indice, array) => { return Object.assign({}, ...array) }, {})
