@@ -10,7 +10,7 @@ import { WebScrapingProvider } from '../../providers/web-scraping/web-scraping';
 })
 export class InicioPage implements OnInit {
 
-  instituicao: string = 'modal';
+  instituicao;
   informacoes;
 
   constructor(private navCtrl: NavController, private webScrapingProvider: WebScrapingProvider, private loadingCtrl: LoadingController, private toastCtrl: ToastController) {
